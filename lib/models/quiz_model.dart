@@ -59,10 +59,6 @@ class QuizModel {
     healths = 3;
   }
 
-  static void resetQuizScoreOnly() {
-    scores = 0;
-  }
-
   static bool isQuizEnd() {
     return currentIndex == quizRepository.length - 1;
   }

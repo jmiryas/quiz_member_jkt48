@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_member_jkt48/models/quiz_model.dart';
 import 'package:random_string/random_string.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../models/quiz_model.dart';
 import '../screens/question_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,40 +26,65 @@ class HomeScreen extends StatelessWidget {
             color: Colors.blue.shade400,
             padding: const EdgeInsets.fromLTRB(20.0, 25.0, 0.0, 0.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage("images/question.png"),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      "User-${randomAlphaNumeric(5)}",
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        letterSpacing: 1.2,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                    const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: AssetImage("images/question.png"),
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      width: 20.0,
                     ),
-                    Text(
-                      "Skor: ${QuizModel.scores}",
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "User-${randomAlphaNumeric(5)}",
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          "Skor: ${QuizModel.scores}",
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
+                ),
+                IconButton(
+                    onPressed: () {
+                      Alert(
+                          context: context,
+                          title: "About",
+                          desc:
+                              "Quiz member JKT48. Dibuat oleh Rizky Ramadhan. @jmiryas (IG). @dendengcrap (Twitter).",
+                          buttons: [
+                            DialogButton(
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ]).show();
+                    },
+                    icon: const Icon(Icons.info, color: Colors.white))
               ],
             ),
           ),
