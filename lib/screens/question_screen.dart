@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../models/quiz_model.dart';
+import '../screens/home_screen.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({Key? key}) : super(key: key);
@@ -120,11 +122,63 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
                                     if (isAnswerCorrect) {
                                       QuizModel.scores += 1;
-                                      QuizModel.nextQuiz();
                                     }
 
                                     if (!isAnswerCorrect) {
                                       QuizModel.healths -= 1;
+                                    }
+
+                                    if (QuizModel.isPlayable() ||
+                                        QuizModel.isGameOver()) {
+                                      Alert(
+                                        context: context,
+                                        type: AlertType.success,
+                                        title: "Quiz telah selesai!",
+                                        desc: "Skor: ${QuizModel.scores}",
+                                        buttons: [
+                                          DialogButton(
+                                            child: const Text(
+                                              "Home",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18.0),
+                                            ),
+                                            onPressed: () {
+                                              QuizModel.resetQuizWithoutScore();
+
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          const HomeScreen()));
+                                            },
+                                            width: 120,
+                                          ),
+                                          DialogButton(
+                                            color: Colors.green,
+                                            child: const Text(
+                                              "Main Lagi",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18.0),
+                                            ),
+                                            onPressed: () {
+                                              QuizModel.resetQuiz();
+
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          const QuestionScreen()));
+                                            },
+                                            width: 120,
+                                          )
+                                        ],
+                                      ).show();
+                                    }
+
+                                    if (isAnswerCorrect) {
+                                      QuizModel.nextQuiz();
                                     }
                                   });
                                 },

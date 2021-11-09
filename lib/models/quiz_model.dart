@@ -47,4 +47,27 @@ class QuizModel {
       currentIndex++;
     }
   }
+
+  static void resetQuiz() {
+    currentIndex = 0;
+    healths = 3;
+    scores = 0;
+  }
+
+  static void resetQuizWithoutScore() {
+    currentIndex = 0;
+    healths = 3;
+  }
+
+  static void resetQuizScoreOnly() {
+    scores = 0;
+  }
+
+  static bool isPlayable() {
+    return currentIndex == quizRepository.length - 1 && healths > 0;
+  }
+
+  static bool isGameOver() {
+    return !(healths > 0);
+  }
 }

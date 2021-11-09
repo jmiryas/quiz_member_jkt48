@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_member_jkt48/models/quiz_model.dart';
+import 'package:random_string/random_string.dart';
 
 import '../screens/question_screen.dart';
 
@@ -9,6 +11,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    final randomString = randomAlphaNumeric(5);
 
     return Scaffold(
         body: Container(
@@ -35,9 +39,9 @@ class HomeScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      "User-xxx",
+                      "User-${randomString}",
                       style: TextStyle(
                           fontSize: 16.0,
                           letterSpacing: 1.2,
@@ -47,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                       height: 5.0,
                     ),
                     Text(
-                      "Score: 0",
+                      "Skor: ${QuizModel.scores}",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ],
@@ -68,6 +72,8 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            QuizModel.resetQuiz();
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
