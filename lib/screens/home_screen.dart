@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_member_jkt48/screens/question_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,16 +64,25 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Card(
                       child: Column(
-                        children: const [
-                          ListTile(
-                            leading: Image(
-                                width: 50.0,
-                                height: 50.0,
-                                fit: BoxFit.cover,
-                                image: AssetImage("images/quiz.png")),
-                            title: Text("Pengetahuan Umum"),
-                            subtitle:
-                                Text("Pengetahuan umum mengenai member JKT48."),
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const QuestionScreen()));
+                            },
+                            child: const ListTile(
+                              leading: Image(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("images/quiz.png")),
+                              title: Text("Pengetahuan Umum"),
+                              subtitle: Text(
+                                  "Pengetahuan umum mengenai member JKT48."),
+                            ),
                           ),
                         ],
                       ),
