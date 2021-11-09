@@ -63,8 +63,8 @@ class QuizModel {
     scores = 0;
   }
 
-  static bool isPlayable() {
-    return currentIndex == quizRepository.length - 1 && healths > 0;
+  static bool isQuizEnd() {
+    return currentIndex == quizRepository.length - 1;
   }
 
   static bool isGameOver() {

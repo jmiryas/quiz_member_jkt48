@@ -12,19 +12,17 @@ class HomeScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final randomString = randomAlphaNumeric(5);
-
     return Scaffold(
         body: Container(
       width: width,
       height: height,
-      color: Colors.amber,
+      // color: Colors.amber,
       child: Column(
         children: [
           Container(
             width: width,
             height: height * 0.15,
-            color: Colors.blue,
+            color: Colors.blue.shade400,
             padding: const EdgeInsets.fromLTRB(20.0, 25.0, 0.0, 0.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,18 +39,23 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "User-${randomString}",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.bold),
+                      "User-${randomAlphaNumeric(5)}",
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        letterSpacing: 1.2,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5.0,
                     ),
                     Text(
                       "Skor: ${QuizModel.scores}",
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 )
@@ -62,7 +65,7 @@ class HomeScreen extends StatelessWidget {
           Container(
             width: width,
             height: height * 0.75,
-            color: Colors.green,
+            // color: Colors.green,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(

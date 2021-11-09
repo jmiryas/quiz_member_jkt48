@@ -18,7 +18,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     for (int i = 0; i < healts; i++) {
       results.add(const Icon(
         Icons.favorite,
-        color: Colors.red,
+        color: Colors.white,
       ));
     }
 
@@ -49,7 +49,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 Container(
                   width: width,
                   height: height * 0.15,
-                  color: Colors.blue,
+                  color: Colors.blue.shade400,
                   padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,9 +58,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       Text(
                         "Score: ${QuizModel.scores}",
                         style: const TextStyle(
-                            fontSize: 16.0,
-                            letterSpacing: 1.2,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 16.0,
+                          letterSpacing: 1.2,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                       _buildHealthWidget(QuizModel.healths)
                     ],
@@ -75,25 +77,31 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       Container(
                         width: width,
                         height: height * 0.75 * 0.32,
-                        color: Colors.amber,
-                        child: Center(
-                          child: Text(
-                            QuizModel.getCurrentQuizModel().question,
-                            style: const TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                        // color: Colors.amber,
+                        padding: const EdgeInsets.all(5.0),
+                        child: Card(
+                          child: Center(
+                            child: Text(
+                              QuizModel.getCurrentQuizModel().question,
+                              style: const TextStyle(
+                                  fontSize: 14.0, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
                       Container(
                         width: width,
                         height: height * 0.75 * 0.36,
-                        color: Colors.blue,
+                        // color: Colors.blue,
                         child: Container(
                           margin: const EdgeInsets.all(5.0),
-                          child: Image(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                                QuizModel.getCurrentQuizModel().image),
+                          child: ClipRRect(
+                            child: Image(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                  QuizModel.getCurrentQuizModel().image),
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                       ),
@@ -128,7 +136,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                       QuizModel.healths -= 1;
                                     }
 
-                                    if (QuizModel.isPlayable() ||
+                                    if (isAnswerCorrect &&
+                                            QuizModel.isQuizEnd() ||
                                         QuizModel.isGameOver()) {
                                       Alert(
                                         context: context,
