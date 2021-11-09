@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_member_jkt48/models/quiz_model.dart';
 
-class QuestionScreen extends StatelessWidget {
+import '../models/quiz_model.dart';
+
+class QuestionScreen extends StatefulWidget {
   const QuestionScreen({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionScreen> createState() => _QuestionScreenState();
+}
+
+class _QuestionScreenState extends State<QuestionScreen> {
+  _buildHealthWidget(int healts) {
+    var results = [];
+
+    for (int i = 0; i < healts; i++) {
+      results.add(const Icon(
+        Icons.favorite,
+        color: Colors.red,
+      ));
+    }
+
+    var allHealts = Row(
+      children: [...results],
+    );
+
+    return allHealts;
+  }
+
+  bool isAnswerCorrect = false;
+  int answerAttempt = 0;
+  int selectedIndex = 0;
+  String selectedAnswer = "";
 
   @override
   Widget build(BuildContext context) {
@@ -10,140 +38,134 @@ class QuestionScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
-          width: width,
-          height: height,
-          color: Colors.amber,
-          child: Column(
-            children: [
-              Container(
-                width: width,
-                height: height * 0.15,
-                color: Colors.blue,
-                padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 0.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Score: 0",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: const [
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        )
-                      ],
-                    )
-                  ],
+        body: Container(
+            width: width,
+            height: height,
+            // color: Colors.amber,
+            child: Column(
+              children: [
+                Container(
+                  width: width,
+                  height: height * 0.15,
+                  color: Colors.blue,
+                  padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Score: ${QuizModel.scores}",
+                        style: const TextStyle(
+                            fontSize: 16.0,
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      _buildHealthWidget(QuizModel.healths)
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                width: width,
-                height: height * 0.75,
-                color: Colors.green,
-                child: Column(
-                  children: [
-                    Container(
-                      width: width,
-                      height: height * 0.75 * 0.32,
-                      color: Colors.amber,
-                      child: Center(
-                        child: Text(
-                          QuizModel.getCurrentQuizModel().question,
-                          style: const TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                Container(
+                  width: width,
+                  height: height * 0.75,
+                  // color: Colors.green,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: width,
+                        height: height * 0.75 * 0.32,
+                        color: Colors.amber,
+                        child: Center(
+                          child: Text(
+                            QuizModel.getCurrentQuizModel().question,
+                            style: const TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: width,
-                      height: height * 0.75 * 0.36,
-                      color: Colors.blue,
-                      child: Container(
-                        margin: const EdgeInsets.all(20.0),
-                        child: Image(
-                          fit: BoxFit.cover,
-                          image:
-                              AssetImage(QuizModel.getCurrentQuizModel().image),
+                      Container(
+                        width: width,
+                        height: height * 0.75 * 0.36,
+                        color: Colors.blue,
+                        child: Container(
+                          margin: const EdgeInsets.all(5.0),
+                          child: Image(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                                QuizModel.getCurrentQuizModel().image),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: width,
-                      height: height * 0.75 * 0.32,
-                      color: Colors.teal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Wrap(
-                          children: [
-                            SizedBox(
-                              width: width / 2 - 20,
-                              height: (height * 0.75 * 0.32) / 2 - 20,
-                              child: Card(
-                                child: Center(
-                                  child: Text(QuizModel.getCurrentQuizModel()
-                                      .choices[0]),
+                      Container(
+                        width: width,
+                        height: height * 0.75 * 0.32,
+                        // color: Colors.teal,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Wrap(
+                            children: QuizModel.getCurrentQuizModel()
+                                .choices
+                                .asMap()
+                                .entries
+                                .map((item) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    answerAttempt += 1;
+                                    selectedIndex = item.key;
+                                    selectedAnswer = item.value;
+
+                                    isAnswerCorrect = selectedAnswer ==
+                                        QuizModel.getCurrentQuizModel()
+                                            .correctAnswer;
+
+                                    if (isAnswerCorrect) {
+                                      QuizModel.scores += 1;
+                                      QuizModel.nextQuiz();
+                                    }
+
+                                    if (!isAnswerCorrect) {
+                                      QuizModel.healths -= 1;
+                                    }
+                                  });
+                                },
+                                child: SizedBox(
+                                  width: width / 2 - 20,
+                                  height: (height * 0.75 * 0.32) / 2 - 20,
+                                  child: answerAttempt > 0
+                                      ? Card(
+                                          child: Center(
+                                            child: Text(item.value),
+                                          ),
+                                          shape: selectedIndex == item.key &&
+                                                  selectedAnswer == item.value
+                                              ? RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      width: 1.0,
+                                                      color: isAnswerCorrect
+                                                          ? Colors.green
+                                                          : Colors.red))
+                                              : const RoundedRectangleBorder())
+                                      : Card(
+                                          child: Center(
+                                            child: Text(item.value),
+                                          ),
+                                          shape: const RoundedRectangleBorder(),
+                                        ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: width / 2 - 20,
-                              height: (height * 0.75 * 0.32) / 2 - 20,
-                              child: Card(
-                                child: Center(
-                                  child: Text(QuizModel.getCurrentQuizModel()
-                                      .choices[0]),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: width / 2 - 20,
-                              height: (height * 0.75 * 0.32) / 2 - 20,
-                              child: Card(
-                                child: Center(
-                                  child: Text(QuizModel.getCurrentQuizModel()
-                                      .choices[0]),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: width / 2 - 20,
-                              height: (height * 0.75 * 0.32) / 2 - 20,
-                              child: Card(
-                                child: Center(
-                                  child: Text(QuizModel.getCurrentQuizModel()
-                                      .choices[0]),
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            }).toList(),
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                width: width,
-                height: height * 0.1,
-                color: Colors.red,
-              ),
-            ],
-          )),
-    );
+                Container(
+                  width: width,
+                  height: height * 0.1,
+                  color: Colors.red,
+                ),
+              ],
+            )));
   }
 }

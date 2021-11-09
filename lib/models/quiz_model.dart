@@ -17,6 +17,8 @@ class QuizModel {
   });
 
   static int currentIndex = 0;
+  static int healths = 3;
+  static int scores = 0;
 
   static List<QuizModel> quizRepository = [
     QuizModel(
@@ -26,12 +28,12 @@ class QuizModel {
         correctAnswer: "2"),
     QuizModel(
         question: "Mendoan berasal dari daerah?",
-        image: "images/gambar.jpg",
+        image: "images/gambar2.jpg",
         choices: ["Banyumas", "Ambarawa", "Jakarta", "Bali"],
         correctAnswer: "Banyumas"),
     QuizModel(
         question: "Berapa jumlah sila pada Pancasila?",
-        image: "images/gambar.jpg",
+        image: "images/gambar3.jpg",
         choices: ["3", "6", "8", "5"],
         correctAnswer: "5"),
   ];
@@ -41,12 +43,8 @@ class QuizModel {
   }
 
   static void nextQuiz() {
-    if (currentIndex < quizRepository.length) {
+    if (currentIndex < quizRepository.length - 1) {
       currentIndex++;
     }
   }
-
-  static int healths = 3;
-
-  static int scores = 100;
 }
