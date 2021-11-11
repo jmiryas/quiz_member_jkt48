@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_member_jkt48/models/quiz_binary_model.dart';
 import 'package:random_string/random_string.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,22 +50,22 @@ class QuizHomeHeaderWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 3.0,
                   ),
                   Row(
                     children: [
                       FaIcon(
                         FontAwesomeIcons.trophy,
                         color: Colors.yellow.shade600,
-                        size: 14.0,
+                        size: 15.0,
                       ),
                       const SizedBox(
                         width: 8.0,
                       ),
                       Text(
-                        "${QuizModel.scores}",
+                        "${QuizModel.scores + QuizBinaryModel.scores}",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                           color: Colors.yellow.shade600,
                           fontWeight: FontWeight.bold,
                         ),

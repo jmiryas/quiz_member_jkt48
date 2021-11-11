@@ -22,7 +22,7 @@ class QuizBinaryModel {
 
   static List<QuizBinaryModel> quizRepository = [
     QuizBinaryModel(
-        question: "1 + 1 = ?",
+        question: "1 + 1 = 2",
         image: "images/gambar.jpg",
         choices: [true, false],
         correctAnswer: true),
@@ -37,4 +37,33 @@ class QuizBinaryModel {
         choices: [true, false],
         correctAnswer: true),
   ];
+
+  static QuizBinaryModel getCurrentQuizModel() {
+    return quizRepository[currentIndex];
+  }
+
+  static void nextQuiz() {
+    if (currentIndex < quizRepository.length - 1) {
+      currentIndex++;
+    }
+  }
+
+  static void resetQuiz() {
+    currentIndex = 0;
+    healths = 3;
+    scores = 0;
+  }
+
+  static void resetQuizWithoutScore() {
+    currentIndex = 0;
+    healths = 3;
+  }
+
+  static bool isQuizEnd() {
+    return currentIndex == quizRepository.length - 1;
+  }
+
+  static bool isGameOver() {
+    return !(healths > 0);
+  }
 }

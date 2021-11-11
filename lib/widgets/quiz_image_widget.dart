@@ -18,7 +18,10 @@ class QuizImageWidget extends StatelessWidget {
       width: width,
       height: height * 0.75 * 0.36,
       child: Container(
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 5.0,
+        ),
         child: ClipRRect(
           child: Image(
             fit: BoxFit.cover,

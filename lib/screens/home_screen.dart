@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_member_jkt48/models/quiz_binary_model.dart';
+import 'package:quiz_member_jkt48/screens/quiz_binary_screen.dart';
 
 import '../models/quiz_model.dart';
 import '../screens/question_screen.dart';
@@ -32,21 +34,25 @@ class HomeScreen extends StatelessWidget {
                         QuizModel.resetQuiz();
 
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const QuestionScreen()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const QuestionScreen(),
+                          ),
+                        );
                       },
                       title: "Pengetahuan Umum",
                       description: "Pengetahuan umum mengenai member JKT48.",
                       image: "images/quiz.png"),
                   QuizMenuWidget(
                       onTap: () {
-                        QuizModel.resetQuiz();
+                        QuizBinaryModel.resetQuiz();
 
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const QuestionScreen()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const QuizBinaryScreen(),
+                          ),
+                        );
                       },
                       title: "True atau False",
                       description:
