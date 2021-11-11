@@ -73,123 +73,169 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
       ).show();
     }
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      body: SizedBox(
-        width: width,
-        height: height,
-        child: Column(
-          children: [
-            QuizScoreHeaderWidget(
-              width: width,
-              height: height,
-              scores: QuizBinaryModel.scores,
-              healths: QuizBinaryModel.healths,
+    return WillPopScope(
+      onWillPop: () async {
+        Alert(
+          context: context,
+          title: "Konfirmasi",
+          desc: "Keluar dari permainan?",
+          buttons: [
+            DialogButton(
+              child: const Text(
+                "Ya",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: () {
+                QuizBinaryModel.resetQuizWithoutScore();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HomeScreen(),
+                  ),
+                );
+              },
+              width: 120,
             ),
-            SizedBox(
-              width: width,
-              height: height * 0.75,
-              child: Column(
-                children: [
-                  QuizQuestionWidget(
-                    width: width,
-                    height: height,
-                    question: QuizBinaryModel.getCurrentQuizModel().question,
-                  ),
-                  QuizImageWidget(
-                    width: width,
-                    height: height,
-                    image: QuizBinaryModel.getCurrentQuizModel().image,
-                  ),
-                  SizedBox(
-                    width: width,
-                    height: height * 0.75 * 0.32,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Wrap(
-                        children: QuizBinaryModel.getCurrentQuizModel()
-                            .choices
-                            .asMap()
-                            .entries
-                            .map((item) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isAnswered = true;
+            DialogButton(
+              child: const Text(
+                "Enggak",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
 
-                                selectedIndex = item.key;
-                                selectedAnswer = item.value;
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade300,
+        body: SizedBox(
+          width: width,
+          height: height,
+          child: Column(
+            children: [
+              QuizScoreHeaderWidget(
+                width: width,
+                height: height,
+                scores: QuizBinaryModel.scores,
+                healths: QuizBinaryModel.healths,
+              ),
+              SizedBox(
+                width: width,
+                height: height * 0.75,
+                child: Column(
+                  children: [
+                    QuizQuestionWidget(
+                      width: width,
+                      height: height,
+                      question: QuizBinaryModel.getCurrentQuizModel().question,
+                    ),
+                    QuizImageWidget(
+                      width: width,
+                      height: height,
+                      image: QuizBinaryModel.getCurrentQuizModel().image,
+                    ),
+                    SizedBox(
+                      width: width,
+                      height: height * 0.75 * 0.32,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Wrap(
+                          children: QuizBinaryModel.getCurrentQuizModel()
+                              .choices
+                              .asMap()
+                              .entries
+                              .map((item) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isAnswered = true;
 
-                                isAnswerCorrect = selectedAnswer ==
-                                    QuizBinaryModel.getCurrentQuizModel()
-                                        .correctAnswer;
+                                  selectedIndex = item.key;
+                                  selectedAnswer = item.value;
 
-                                if (isAnswerCorrect) {
-                                  QuizBinaryModel.scores += 1;
-                                }
+                                  isAnswerCorrect = selectedAnswer ==
+                                      QuizBinaryModel.getCurrentQuizModel()
+                                          .correctAnswer;
 
-                                if (!isAnswerCorrect) {
-                                  QuizBinaryModel.healths -= 1;
-                                }
+                                  if (isAnswerCorrect) {
+                                    QuizBinaryModel.scores += 1;
+                                  }
 
-                                if (isAnswered && QuizBinaryModel.isQuizEnd()) {
-                                  _displayAlert();
-                                }
+                                  if (!isAnswerCorrect) {
+                                    QuizBinaryModel.healths -= 1;
+                                  }
 
-                                if (isAnswerCorrect &&
-                                        QuizBinaryModel.isQuizEnd() ||
-                                    QuizBinaryModel.isGameOver()) {
-                                  _displayAlert();
-                                }
+                                  if (isAnswered &&
+                                      QuizBinaryModel.isQuizEnd()) {
+                                    _displayAlert();
+                                  }
 
-                                Future.delayed(const Duration(seconds: 1), () {
-                                  setState(() {
-                                    isAnswered = false;
+                                  if (isAnswerCorrect &&
+                                          QuizBinaryModel.isQuizEnd() ||
+                                      QuizBinaryModel.isGameOver()) {
+                                    _displayAlert();
+                                  }
 
-                                    QuizBinaryModel.nextQuiz();
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () {
+                                    setState(() {
+                                      isAnswered = false;
+
+                                      QuizBinaryModel.nextQuiz();
+                                    });
                                   });
                                 });
-                              });
-                            },
-                            child: SizedBox(
-                              width: width / 2 - 20,
-                              height: (height * 0.75 * 0.32) / 2 - 20,
-                              child: isAnswered
-                                  ? Card(
-                                      child: Center(
-                                        child: Text(
-                                            item.value ? "Benar" : "Salah"),
+                              },
+                              child: SizedBox(
+                                width: width / 2 - 20,
+                                height: (height * 0.75 * 0.32) / 2 - 20,
+                                child: isAnswered
+                                    ? Card(
+                                        child: Center(
+                                          child: Text(
+                                              item.value ? "Benar" : "Salah"),
+                                        ),
+                                        shape: selectedIndex == item.key &&
+                                                selectedAnswer == item.value
+                                            ? RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    width: 1.0,
+                                                    color: isAnswerCorrect
+                                                        ? Colors.green
+                                                        : Colors.red))
+                                            : const RoundedRectangleBorder())
+                                    : Card(
+                                        child: Center(
+                                          child: Text(
+                                              item.value ? "Benar" : "Salah"),
+                                        ),
                                       ),
-                                      shape: selectedIndex == item.key &&
-                                              selectedAnswer == item.value
-                                          ? RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  width: 1.0,
-                                                  color: isAnswerCorrect
-                                                      ? Colors.green
-                                                      : Colors.red))
-                                          : const RoundedRectangleBorder())
-                                  : Card(
-                                      child: Center(
-                                        child: Text(
-                                            item.value ? "Benar" : "Salah"),
-                                      ),
-                                    ),
-                            ),
-                          );
-                        }).toList(),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: width,
-              height: height * 0.1,
-              color: Colors.red,
-            ),
-          ],
+              Container(
+                width: width,
+                height: height * 0.1,
+                color: Colors.red,
+              ),
+            ],
+          ),
         ),
       ),
     );
