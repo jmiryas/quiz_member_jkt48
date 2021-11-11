@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../screens/home_screen.dart';
@@ -168,7 +169,13 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
                                           .correctAnswer;
 
                                   if (isAnswerCorrect) {
+                                    final player = AudioCache();
+                                    player.play("correct.mp3");
+
                                     QuizBinaryModel.scores += 1;
+                                  } else {
+                                    final player = AudioCache();
+                                    player.play("wrong.mp3");
                                   }
 
                                   if (!isAnswerCorrect) {

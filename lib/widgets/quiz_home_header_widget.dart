@@ -54,9 +54,9 @@ class QuizHomeHeaderWidget extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      FaIcon(
+                      const FaIcon(
                         FontAwesomeIcons.trophy,
-                        color: Colors.yellow.shade600,
+                        color: Colors.white,
                         size: 15.0,
                       ),
                       const SizedBox(
@@ -64,9 +64,9 @@ class QuizHomeHeaderWidget extends StatelessWidget {
                       ),
                       Text(
                         "${QuizModel.scores + QuizBinaryModel.scores}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
-                          color: Colors.yellow.shade600,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

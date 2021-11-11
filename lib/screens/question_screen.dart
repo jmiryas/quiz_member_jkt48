@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../models/quiz_model.dart';
@@ -177,7 +178,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                       }
 
                                       if (isAnswerCorrect) {
+                                        final player = AudioCache();
+                                        player.play("correct.mp3");
+
                                         QuizModel.nextQuiz();
+                                      } else {
+                                        final player = AudioCache();
+                                        player.play("wrong.mp3");
                                       }
                                     });
                                   },
