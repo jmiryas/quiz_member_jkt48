@@ -22,9 +22,10 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         children: [
           QuizHomeHeaderWidget(width: width, height: height),
-          SizedBox(
+          Container(
             width: width,
             height: height * 0.75,
+            color: Colors.grey.shade800,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(

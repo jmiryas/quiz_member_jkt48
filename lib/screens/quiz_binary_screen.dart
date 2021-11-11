@@ -118,7 +118,7 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Colors.grey.shade300,
+        backgroundColor: Colors.grey.shade800,
         body: SizedBox(
           width: width,
           height: height,

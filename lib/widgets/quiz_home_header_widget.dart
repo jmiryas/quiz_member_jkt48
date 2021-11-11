@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_member_jkt48/models/quiz_binary_model.dart';
 import 'package:random_string/random_string.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/quiz_model.dart';
+import '../models/quiz_binary_model.dart';
 
 class QuizHomeHeaderWidget extends StatelessWidget {
   const QuizHomeHeaderWidget({
@@ -21,7 +21,7 @@ class QuizHomeHeaderWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height * 0.15,
-      color: Colors.blue.shade400,
+      color: Colors.grey.shade900,
       padding: const EdgeInsets.fromLTRB(20.0, 25.0, 0.0, 0.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

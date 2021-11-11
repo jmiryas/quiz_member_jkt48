@@ -70,6 +70,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         return false;
       },
       child: Scaffold(
+          backgroundColor: Colors.grey.shade800,
           body: SizedBox(
               width: width,
               height: height,

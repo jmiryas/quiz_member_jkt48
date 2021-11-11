@@ -19,7 +19,7 @@ class QuizMenuWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 10.0),
+        margin: const EdgeInsets.only(bottom: 5.0),
         child: Card(
           child: ListTile(
             leading: Image(

@@ -36,7 +36,7 @@ class QuizScoreHeaderWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height * 0.15,
-      color: Colors.blue.shade400,
+      color: Colors.grey.shade900,
       padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 0.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
