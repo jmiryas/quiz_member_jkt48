@@ -17,7 +17,6 @@ class QuizQuestionWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height * 0.75 * 0.32,
-      color: Colors.amber,
       padding: const EdgeInsets.all(5.0),
       child: Card(
         child: Center(
