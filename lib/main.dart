@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../ads/ad_state.dart';
 import '../screens/home_screen.dart';
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 5000), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       setState(() {
         loadingTime = false;
       });
