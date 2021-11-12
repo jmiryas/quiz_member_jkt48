@@ -29,6 +29,12 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
   BannerAd? bannerAd;
 
   @override
+  void initState() {
+    super.initState();
+    QuizBinaryModel.quizRepository.shuffle();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 

@@ -22,20 +22,31 @@ class QuizBinaryModel {
 
   static List<QuizBinaryModel> quizRepository = [
     QuizBinaryModel(
-        question: "1 + 1 = 2",
-        image: "images/gambar.jpg",
+        question:
+            "Yupi adalah member generasi 2 yang berhasil memperoleh peringkat pertama di SSK JKT48.",
+        image: "images/quiz_binary_1.jpg",
         choices: [true, false],
         correctAnswer: true),
     QuizBinaryModel(
-        question: "Mendoan berasal dari daerah Sumbawa.",
-        image: "images/gambar2.jpg",
+        question: "Durasi Fiony selama masa Academy A adalah 6 bulan 2 hari.",
+        image: "images/quiz_binary_2.jpg",
         choices: [true, false],
         correctAnswer: false),
     QuizBinaryModel(
-        question: "Pancasila terdiri dari 5 sila.",
-        image: "images/gambar3.jpg",
+        question: "Gaby adalah member JKT48 dengan durasi paling lama.",
+        image: "images/quiz_binary_3.jpg",
         choices: [true, false],
         correctAnswer: true),
+    QuizBinaryModel(
+        question: "Fiony mengambil mainan bebek saat menginap di hotel.",
+        image: "images/quiz_binary_4.jpg",
+        choices: [true, false],
+        correctAnswer: true),
+    QuizBinaryModel(
+        question: "Asha adalah nama panggilan Ashel yang resmi.",
+        image: "images/quiz_binary_5.jpg",
+        choices: [true, false],
+        correctAnswer: false),
   ];
 
   static QuizBinaryModel getCurrentQuizModel() {

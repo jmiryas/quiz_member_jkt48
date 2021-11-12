@@ -27,6 +27,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
   BannerAd? bannerAd;
 
   @override
+  void initState() {
+    super.initState();
+    QuizModel.quizRepository.shuffle();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 

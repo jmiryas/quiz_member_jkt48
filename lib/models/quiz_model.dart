@@ -22,20 +22,31 @@ class QuizModel {
 
   static List<QuizModel> quizRepository = [
     QuizModel(
-        question: "1 + 1 = ?",
-        image: "images/gambar.jpg",
-        choices: ["1", "2", "3", "4"],
-        correctAnswer: "2"),
+        question:
+            "Siapakah member yang berpikir kalau JKT48 adalah pekerjaan sukarela?",
+        image: "images/quiz_image_1.jpg",
+        choices: ["Fiony", "Gracia", "Shani", "Celine"],
+        correctAnswer: "Fiony"),
     QuizModel(
-        question: "Mendoan berasal dari daerah?",
-        image: "images/gambar2.jpg",
-        choices: ["Banyumas", "Ambarawa", "Jakarta", "Bali"],
-        correctAnswer: "Banyumas"),
+        question: "Berapakah draft Tiktok milik Gracia?",
+        image: "images/quiz_image_2.jpg",
+        choices: ["500++", "1000++", "2000++", "2500++"],
+        correctAnswer: "2500++"),
     QuizModel(
-        question: "Berapa jumlah sila pada Pancasila?",
-        image: "images/gambar3.jpg",
+        question: "Oniel merupakan member dari generasi ke-?",
+        image: "images/quiz_image_3.jpg",
         choices: ["3", "6", "8", "5"],
-        correctAnswer: "5"),
+        correctAnswer: "8"),
+    QuizModel(
+        question: "Pada bulan apa Fiony memesan paketnya?",
+        image: "images/quiz_image_4.jpg",
+        choices: ["Agustus", "November", "Januari", "Februari"],
+        correctAnswer: "Januari"),
+    QuizModel(
+        question: "Siapakah kapten pertama Team K3?",
+        image: "images/quiz_image_5.jpg",
+        choices: ["Yona", "Vienny", "Sisca", "Naomi"],
+        correctAnswer: "Naomi"),
   ];
 
   static QuizModel getCurrentQuizModel() {

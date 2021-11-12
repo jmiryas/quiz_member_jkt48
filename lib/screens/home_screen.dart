@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../ads/ad_state.dart';
-
 import '../models/quiz_model.dart';
 import '../screens/question_screen.dart';
 import '../widgets/quiz_menu_widget.dart';

@@ -7,6 +7,9 @@ class AdState {
 
   String get bannerAdUnitId {
     return "ca-app-pub-4608079557029160/9203790846";
+
+    // Test Ad
+    // return "ca-app-pub-3940256099942544/6300978111";
   }
 
   final BannerAdListener _adListener = BannerAdListener(

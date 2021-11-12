@@ -17,11 +17,13 @@ class QuizQuestionWidget extends StatelessWidget {
     return Container(
       width: width,
       height: height * 0.75 * 0.32,
+      color: Colors.amber,
       padding: const EdgeInsets.all(5.0),
       child: Card(
         child: Center(
           child: Text(
             question,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
