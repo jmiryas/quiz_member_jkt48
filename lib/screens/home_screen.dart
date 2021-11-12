@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_member_jkt48/models/quiz_binary_model.dart';
-import 'package:quiz_member_jkt48/screens/quiz_binary_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../ads/ad_state.dart';
 
 import '../models/quiz_model.dart';
 import '../screens/question_screen.dart';
 import '../widgets/quiz_menu_widget.dart';
+import '../models/quiz_binary_model.dart';
+import '../screens/quiz_binary_screen.dart';
 import '../widgets/quiz_home_header_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  BannerAd? bannerAd;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final adState = Provider.of<AdState>(context);
+
+    adState.initialization.then((status) {
+      setState(() {
+        bannerAd = BannerAd(
+          size: AdSize.banner,
+          adUnitId: adState.bannerAdUnitId,
+          listener: adState.adListener,
+          request: const AdRequest(),
+        )..load();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +92,18 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: width,
-            height: height * 0.1,
-            color: Colors.red,
-          ),
+          bannerAd == null
+              ? Container(
+                  width: width,
+                  height: height * 0.1,
+                  color: Colors.grey.shade700,
+                )
+              : Container(
+                  width: width,
+                  height: height * 0.1,
+                  color: Colors.transparent,
+                  child: AdWidget(ad: bannerAd!),
+                ),
         ],
       ),
     ));

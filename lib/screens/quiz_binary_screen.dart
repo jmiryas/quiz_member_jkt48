@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../ads/ad_state.dart';
 import '../screens/home_screen.dart';
 import '../models/quiz_binary_model.dart';
 import '../widgets/quiz_image_widget.dart';
@@ -22,6 +25,26 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
   bool isAnswered = false;
   bool selectedAnswer = false;
   bool isAnswerCorrect = false;
+
+  BannerAd? bannerAd;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final adState = Provider.of<AdState>(context);
+
+    adState.initialization.then((status) {
+      setState(() {
+        bannerAd = BannerAd(
+          size: AdSize.banner,
+          adUnitId: adState.bannerAdUnitId,
+          listener: adState.adListener,
+          request: const AdRequest(),
+        )..load();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,11 +259,18 @@ class _QuizBinaryScreenState extends State<QuizBinaryScreen> {
                   ],
                 ),
               ),
-              Container(
-                width: width,
-                height: height * 0.1,
-                color: Colors.red,
-              ),
+              bannerAd == null
+                  ? Container(
+                      width: width,
+                      height: height * 0.1,
+                      color: Colors.grey.shade700,
+                    )
+                  : Container(
+                      width: width,
+                      height: height * 0.1,
+                      color: Colors.transparent,
+                      child: AdWidget(ad: bannerAd!),
+                    ),
             ],
           ),
         ),

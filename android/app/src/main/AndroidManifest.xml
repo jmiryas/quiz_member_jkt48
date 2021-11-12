@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quiz_member_jkt48">
+  <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
         android:label="Quiz Member JKT48"
         android:icon="@mipmap/ic_launcher">
@@ -37,5 +39,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4608079557029160~5456117520"/>
     </application>
 </manifest>
